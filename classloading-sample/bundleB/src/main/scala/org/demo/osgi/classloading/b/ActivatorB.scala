@@ -18,19 +18,21 @@ class ActivatorB extends BundleActivator {
     logger.info("B is starting")
     useAndPrint(Foo.incAndGetValue, "foo numbers for B")
 
-    logger.info("Obtaining service")
-    val serviceRef =
-      ctx.getServiceReference(classOf[SampleService].getName)
-    val service = ctx.getService(serviceRef).asInstanceOf[SampleService]
-    useAndPrint(service.decAndGet, "service numbers for B")
-    ctx.ungetService(serviceRef)
-    logger.info("B released service reference")
-
+    logger.info("Obtaining SampleService")
+    val serviceRef = Option(ctx.getServiceReference(classOf[SampleService].getName))
+    serviceRef match {
+      case Some(ref) =>
+        val service = ctx.getService(ref).asInstanceOf[SampleService]
+        useAndPrint(service.decAndGet, "service numbers for B")
+        ctx.ungetService(ref)
+        logger.info("B released SampleService reference")
+      case None => logger.error("SampleService not found")
+    }
   }
 
 
   def useAndPrint(f: () => Int, msg: String) {
-    val r = (1 to 10).map(_ => f()).foldLeft(msg)((s,i) => s+"-"+i)
+    val r = (1 to 10).map(_ => f()).foldLeft(msg)((s, i) => s + "-" + i)
     logger.info(r)
   }
 

@@ -3,6 +3,7 @@ package org.demo.osgi.classloading.a
 import org.osgi.framework.{BundleContext, BundleActivator}
 import org.demo.osgi.classloading.common.Foo
 import org.demo.osgi.service.SampleService
+import scala.None
 
 /**
  * todo
@@ -18,12 +19,17 @@ class ActivatorA extends BundleActivator {
     logger.info("A is starting")
     useAndPrint(Foo.incAndGetValue, "foo numbers for A")
 
-    logger.info("Obtaining service")
-    val serviceRef = ctx.getServiceReference(classOf[SampleService].getName)
-    val service = ctx.getService(serviceRef).asInstanceOf[SampleService]
-    useAndPrint(service.decAndGet, "service numbers for A")
-    ctx.ungetService(serviceRef)
-    logger.info("A released service reference")
+    logger.info("Obtaining SampleService")
+    val serviceRef = Option(ctx.getServiceReference(classOf[SampleService].getName))
+    serviceRef match {
+      case Some(ref) =>
+        val service = ctx.getService(ref).asInstanceOf[SampleService]
+        useAndPrint(service.decAndGet, "service numbers for A")
+        ctx.ungetService(ref)
+        logger.info("A released SampleService reference")
+      case None => logger.error("SampleService not found")
+    }
+
   }
 
   def useAndPrint(f: () => Int, msg: String) {
