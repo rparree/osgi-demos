@@ -11,6 +11,9 @@ JBossFuse:karaf@root> install mvn:com.edc4it/simple-service_2.11/0.1.0-SNAPSHOT
 - **simple-service** a simple blueprint configured OSGI Service
 - **simple-service-test** uses [PAX Exam](https://ops4j1.jira.com/wiki/display/PAXEXAM3/Documentation) to test the `SampleService` 
 - **scala-test-feature** a maven project using the [features-maven-plugin](http://karaf.apache.org/manual/latest-2.3.x/developers-guide/features-maven-plugin-generate.html) to generate a `feature.xml` file
+- **classloading-sample**:  **bundleA** and **bundleB** both use **common** and the **simple-service**. The demos shows how each bundle has its 
+own classloader. Publish all and then copy the `feature.xml` to the hot deploy directory.
+
 # Setup 
 
 You will need to install  [SBT 0.13](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html)

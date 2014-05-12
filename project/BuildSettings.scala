@@ -11,6 +11,7 @@ object BuildSettings {
     scalaVersion          := "2.11.0",
     resolvers             ++= Dependencies.resolutionRepos,
     scalacOptions         += "-target:jvm-1.7",
+    javacOptions          ++= Seq("-source", "1.7", "-target", "1.7"),
     publishTo             := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
   )
 

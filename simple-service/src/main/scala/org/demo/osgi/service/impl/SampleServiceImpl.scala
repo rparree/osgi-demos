@@ -7,5 +7,9 @@ import java.util.concurrent.atomic.AtomicInteger
  * todo
  */
 class SampleServiceImpl extends SampleService {
-  override def sayMyName(name: String): String = s"your name is $name"
+  override def sayMyName(name: String) = s"your name is $name"
+
+  private val i = new AtomicInteger
+
+  override def decAndGet() = i.decrementAndGet()  
 }
