@@ -13,6 +13,14 @@ JBossFuse:karaf@root> install mvn:com.edc4it/simple-service_2.11/0.1.0-SNAPSHOT
 - **scala-test-feature** a maven project using the [features-maven-plugin](http://karaf.apache.org/manual/latest-2.3.x/developers-guide/features-maven-plugin-generate.html) to generate a `feature.xml` file
 - **classloading-sample**:  **bundleA** and **bundleB** both use **common** and the **simple-service**. The demos shows how each bundle has its 
 own classloader. Publish all and then copy the `feature.xml` to the hot deploy directory.
+- **camel-blueprint** Illustrates the use of camel on OSGI as well as a unit test. The configuration uses a PropertyPlaceHolder. Two routes use these properties. 
+The inlined route uses a property `uriSystemA` (which is overridden during test to a mock). The `demo.blueprint.routes.MyRoute` uses another property (which also is overridden during test). 
+The value for this propperty is injected into the Java DSL routebuiler using `@EndpointInject`. Note that the properties have defaulf values, there is no need to add `etc/camel-demo.cfg` to fuse. 
+To consume the inlined service once deployed to fuse use the following curl command:
+```bash
+#creates file in /tmp/camel/out
+curl -H "Content-Type: text/plain" --data "johnny"  http://localhost:9090/service
+```  
 
 # Setup 
 

@@ -31,8 +31,9 @@ object OsgiDemosBuild extends Build {
 
   lazy val simpleServiceTest = Project(id = "simple-service-test", base = file("simple-service-test"))
     .settings(simpleServiceTestSettings: _*)
-
-    .settings(libraryDependencies ++= compile(osgi, slf4j) ++ test(slf4jLog4j, paxExam, inject, paxExamCDI, paxAether, mvnUrl, guava, examNative, felix))
+    .settings(libraryDependencies ++= compile(osgi, slf4j) 
+    ++ test(slf4jLog4j, paxExam, inject, paxExamCDI, 
+    paxAether, mvnUrl, guava, examNative, felix))
     .dependsOn(simpleService)
 
   lazy val simpleService = Project(id = "simple-service", base = file("simple-service"))
@@ -49,7 +50,7 @@ object OsgiDemosBuild extends Build {
     .settings(libraryDependencies ++= compile(osgi, slf4j))
     .settings(osgiSettings: _*)
     .settings(
-      OsgiKeys.exportPackage := Seq("org.demo.osgi.classloading.common")
+      OsgiKeys.exportPackage := Seq("!*blah","org.demo.osgi.classloading.common.*")
     )
 
   lazy val bundleA = Project(id = "bundleA", base = file("classloading-sample/bundleA"))
@@ -72,5 +73,22 @@ object OsgiDemosBuild extends Build {
       OsgiKeys.bundleActivator := Option("org.demo.osgi.classloading.b.ActivatorB")
     )
     .dependsOn(common, simpleService)
+
+
+  lazy val blueprintCamelDemo = Project(id = "camel-blueprint", base = file("camel-blueprint"))
+    .settings(basicSettings: _*)
+    .settings(
+      libraryDependencies ++= compile(osgi, slf4j)
+        ++ compile(camelSeq : _*)
+        ++ test (camelTest, slf4jLog4j)
+    )
+
+    .settings(osgiSettings: _*)
+    .settings(
+      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"")
+    )
+    .dependsOn(simpleService)
+
+
 
 }

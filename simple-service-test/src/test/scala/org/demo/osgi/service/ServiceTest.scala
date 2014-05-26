@@ -36,7 +36,7 @@ class ServiceTest {
 
   @Test
   def sayMyNameShouldRespondCorrectly() : Unit =  {
-    assertEquals("your name is Jennifer", service.sayMyName("Jennifer"))
+    assertEquals("your name is Heisenberg", service.sayMyName("Heisenberg"))
   }
 
 
