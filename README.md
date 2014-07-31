@@ -15,12 +15,12 @@ JBossFuse:karaf@root> install mvn:com.edc4it/simple-service_2.11/0.1.0-SNAPSHOT
 own classloader. Publish all and then copy the `feature.xml` to the hot deploy directory.
 - **camel-blueprint** Illustrates the use of camel on OSGI as well as a unit test. The configuration uses a PropertyPlaceHolder. Two routes use these properties. 
 The inlined route uses a property `uriSystemA` (which is overridden during test to a mock). The `demo.blueprint.routes.MyRoute` uses another property (which also is overridden during test). 
-The value for this propperty is injected into the Java DSL routebuiler using `@EndpointInject`. Note that the properties have defaulf values, there is no need to add `etc/camel-demo.cfg` to fuse. 
+The value for this property is injected into the Java DSL routebuiler using `@EndpointInject`. Note that the properties have defaulf values, there is no need to add `etc/camel-demo.cfg` to fuse. 
 To consume the inlined service once deployed to fuse use the following curl command:
 ```bash
 #creates file in /tmp/camel/out
 curl -H "Content-Type: text/plain" --data "johnny"  http://localhost:9090/service
-```  
+- **fabric-demo** A camel fabric demo illustrating location transparency and load balancing. This demo has its own  ([readme](fabric-demo/README.md))
 
 # Setup 
 

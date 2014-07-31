@@ -9,6 +9,7 @@ object BuildSettings {
     startYear             := Some(2014),
     licenses              := Seq("Apache 2" -> new URL("http://www.apache.org/licenses/LICENSE-2.0.txt")),
     scalaVersion          := "2.11.0",
+    crossPaths          := false,
     resolvers             ++= Dependencies.resolutionRepos,
     scalacOptions         ++= Seq("-target:jvm-1.7", "-deprecation"),
     javacOptions          ++= Seq("-source", "1.7", "-target", "1.7"),

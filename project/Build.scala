@@ -1,8 +1,7 @@
-import sbt._
-import Keys._
-import com.typesafe.sbt.osgi.SbtOsgi._
 import com.typesafe.sbt.osgi.OsgiKeys
-import scala.Some
+import com.typesafe.sbt.osgi.SbtOsgi._
+import sbt.Keys._
+import sbt._
 
 object OsgiDemosBuild extends Build {
 
@@ -31,8 +30,8 @@ object OsgiDemosBuild extends Build {
 
   lazy val simpleServiceTest = Project(id = "simple-service-test", base = file("simple-service-test"))
     .settings(simpleServiceTestSettings: _*)
-    .settings(libraryDependencies ++= compile(osgi, slf4j) 
-    ++ test(slf4jLog4j, paxExam, inject, paxExamCDI, 
+    .settings(libraryDependencies ++= compile(osgi, slf4j)
+    ++ test(slf4jLog4j, paxExam, inject, paxExamCDI,
     paxAether, mvnUrl, guava, examNative, felix))
     .dependsOn(simpleService)
 
@@ -43,7 +42,7 @@ object OsgiDemosBuild extends Build {
       OsgiKeys.privatePackage := Seq("org.demo.osgi.service.impl.*"),
       OsgiKeys.exportPackage := Seq("org.demo.osgi.service")
     )
-    .settings(libraryDependencies ++= compile(osgi, slf4j))
+    .settings(libraryDependencies ++= compile(osgi, slf4j) )
 
   lazy val common = Project(id = "common", base = file("classloading-sample/common"))
     .settings(basicSettings: _*)
@@ -88,6 +87,36 @@ object OsgiDemosBuild extends Build {
       OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"")
     )
     .dependsOn(simpleService)
+
+
+  lazy val fabricJetty = Project(id = "fabric-jetty", base = file("fabric-demo/fabric-jetty"))
+    .settings(basicSettings: _*)
+    .settings(
+      libraryDependencies ++= compile(osgi, slf4j)
+        ++ compile(camelSeq : _*)
+        ++ test (camelTest, slf4jLog4j)
+    )
+
+    .settings(osgiSettings: _*)
+    .settings(
+      OsgiKeys.privatePackage := Nil,
+      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","org.fusesource.fabric.zookeeper")
+    )
+
+  lazy val fabricDemoClientClient = Project(id = "fabric-demo-client", base = file("fabric-demo/fabric-demo-client"))
+    .settings(basicSettings: _*)
+    .settings(
+      
+      libraryDependencies ++= compile(osgi, slf4j)
+        ++ compile(camelSeq : _*)
+        ++ test (camelTest, slf4jLog4j)
+    )
+
+    .settings(osgiSettings: _*)
+    .settings(
+      OsgiKeys.privatePackage := Nil,
+      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","org.fusesource.fabric.zookeeper")
+    )
 
 
 
