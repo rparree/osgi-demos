@@ -20,6 +20,8 @@ To consume the inlined service once deployed to fuse use the following curl comm
 ```bash
 #creates file in /tmp/camel/out
 curl -H "Content-Type: text/plain" --data "johnny"  http://localhost:9090/service
+```
+
 - **fabric-demo** A camel fabric demo illustrating location transparency and load balancing. This demo has its own  ([readme](fabric-demo/README.md))
 
 # Setup 
