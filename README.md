@@ -6,11 +6,25 @@ Please consult the setup below
 
 - **scala-test** a simple scala bundle with an activator. Can be used to check if scala was configured correctly
 ```bash
-JBossFuse:karaf@root> install mvn:com.edc4it/simple-service_2.11/0.1.0-SNAPSHOT
+JBossFuse:karaf@root> install mvn:com.edc4it/simple-service/0.1.0-SNAPSHOT
 ```
 - **simple-service** a simple blueprint configured OSGI Service
 - **simple-service-test** uses [PAX Exam](https://ops4j1.jira.com/wiki/display/PAXEXAM3/Documentation) to test the `SampleService` 
 - **scala-test-feature** a maven project using the [features-maven-plugin](http://karaf.apache.org/manual/latest-2.3.x/developers-guide/features-maven-plugin-generate.html) to generate a `feature.xml` file
+you can create the `feature.xml` by running
+
+```bash
+$ mvn generate-resources
+$ vi target/classes/feature.xml
+```
+
+Then install and use
+
+```shell
+JBossFuse:karaf@root> features:addurl file:///../target/classes/feature.xml
+JBossFuse:karaf@root> features:install scala-test_2.1
+```
+
 - **classloading-sample**:  **bundleA** and **bundleB** both use **common** and the **simple-service**. The demos shows how each bundle has its 
 own classloader. Publish all and then copy the `feature.xml` to the hot deploy directory.
 - **camel-blueprint** Illustrates the use of camel on OSGI as well as a unit test. The configuration uses a PropertyPlaceHolder. Two routes use these properties. 
@@ -25,6 +39,8 @@ curl -H "Content-Type: text/plain" --data "johnny"  http://localhost:9090/servic
 - **fabric-demo** A camel fabric demo illustrating location transparency and load balancing. This demo has its own  ([readme](fabric-demo/README.md))
 
 # Setup 
+
+**Java version**: Make sure you run with Java SE 7 and not Java SE 8
 
 You will need to install  [SBT 0.13](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html)
 

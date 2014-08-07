@@ -6,8 +6,8 @@
            http://camel.apache.org/schema/blueprint/camel-blueprint-2.12.2.xsd">
 
 
-    <!-- etc/camel-demo.cfg -->
-    <cm:property-placeholder persistent-id="camel-demo">
+    <!-- etc/org.camel.demo.cfg -->
+    <cm:property-placeholder persistent-id="org.camel.demo">
         <cm:default-properties>
             <cm:property name="ep" value="jetty:http://localhost:9091/service"/>
             <cm:property name="uriSystemA" value="file:/tmp/camel/out"/>

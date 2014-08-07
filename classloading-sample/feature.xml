@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <features>
-  <feature name='demos-assambly'>
-    <bundle>mvn:org.scala-lang/scala-library/2.11.0</bundle>
-    <bundle>mvn:org.osgi/org.osgi.core/4.3.0</bundle>
-      <bundle>mvn:com.edc4it/simple-service_2.11/0.1.0-SNAPSHOT</bundle>
-      <bundle>mvn:com.edc4it/common_2.11/0.1.0-SNAPSHOT</bundle>
-      <bundle>mvn:com.edc4it/bundlea_2.11/0.1.0-SNAPSHOT</bundle>
-      <bundle>mvn:com.edc4it/bundleb_2.11/0.1.0-SNAPSHOT</bundle>
-  </feature>
+    <feature name='demos-assembly'>
+        <bundle>mvn:org.scala-lang/scala-library/2.11.0</bundle>
+        <bundle>mvn:org.osgi/org.osgi.core/4.3.0</bundle>
+        <bundle>mvn:com.edc4it/simple-service/0.1.0-SNAPSHOT</bundle>
+        <bundle>mvn:com.edc4it/common/0.1.0-SNAPSHOT</bundle>
+        <bundle>mvn:com.edc4it/bundlea/0.1.0-SNAPSHOT</bundle>
+        <bundle>mvn:com.edc4it/bundleb/0.1.0-SNAPSHOT</bundle>
+    </feature>
 </features>
