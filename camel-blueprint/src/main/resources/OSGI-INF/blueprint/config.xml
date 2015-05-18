@@ -14,10 +14,10 @@
         </cm:default-properties>
     </cm:property-placeholder>
 
-    <camelContext xmlns="http://camel.apache.org/schema/blueprint" streamCache="true">
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint" id="camel-blueprint" streamCache="true">
         <package>demo.blueprint.routes</package>
         <endpoint id="fromEndpoint" uri="{{ep}}"/>
-        <route>
+        <route id="jettyRoute">
             <from uri="jetty:http://localhost:9090/service"/>
             <transform>
                 <simple>${in.body}@work.com</simple>
@@ -25,6 +25,6 @@
             <to uri="{{uriSystemA}}"/>
         </route>
     </camelContext>
-    
-    
+
+
 </blueprint>

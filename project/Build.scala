@@ -84,8 +84,8 @@ object OsgiDemosBuild extends Build {
 
     .settings(osgiSettings: _*)
     .settings(
-      OsgiKeys.privatePackage := Nil,
-      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"")
+      OsgiKeys.privatePackage := Seq("demo.blueprint.routes"),
+      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","*")
     )
     .dependsOn(simpleService)
 

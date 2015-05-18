@@ -23,7 +23,7 @@ class ServiceTest {
 
   @Configuration
   def config(): Array[Option] = options(
-    mavenBundle().groupId("com.edc4it").artifactId("simple-service_2.11").version("0.1.0-SNAPSHOT"),
+    mavenBundle().groupId("com.edc4it").artifactId("simple-service").version("0.1.0-SNAPSHOT"),
    
     mavenBundle().groupId("org.scala-lang").artifactId("scala-library").version("2.11.0"),
   
@@ -36,7 +36,7 @@ class ServiceTest {
 
   @Test
   def sayMyNameShouldRespondCorrectly() : Unit =  {
-    assertEquals("your name is Heisenberg", service.sayMyName("Heisenberg"))
+    assertEquals("your name is Heisenberg!", service.sayMyName("Heisenberg"))
   }
 
 
