@@ -101,7 +101,7 @@ object OsgiDemosBuild extends Build {
     .settings(osgiSettings: _*)
     .settings(
       OsgiKeys.privatePackage := Nil,
-      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","org.fusesource.fabric.zookeeper")
+      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","io.fabric8.camel")
     )
 
   lazy val fabricDemoClientClient = Project(id = "fabric-demo-client", base = file("fabric-demo/fabric-demo-client"))
@@ -116,7 +116,7 @@ object OsgiDemosBuild extends Build {
     .settings(osgiSettings: _*)
     .settings(
       OsgiKeys.privatePackage := Nil,
-      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","org.fusesource.fabric.zookeeper")
+      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","io.fabric8.camel")
     )
 
 
