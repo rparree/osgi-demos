@@ -30,9 +30,9 @@ object Dependencies {
   var mvnUrl = "org.ops4j.pax.exam" % "pax-exam-link-mvn" % "3.4.0"
   var paxAether = "org.ops4j.pax.url" % "pax-url-aether" % "1.6.0"
   var slf4jLog4j = "org.slf4j" % "slf4j-log4j12" % "1.7.7"
-  var camelSeq = Seq("camel-core", "camel-jetty","camel-scala") map ("org.apache.camel" % _ % "2.12.2")
+  var camelSeq = Seq("camel-core", "camel-jetty","camel-scala") map ("org.apache.camel" % _ % "2.15.0")
   
-  var camelTest = "org.apache.camel" % "camel-test-blueprint" % "2.12.2"
+  var camelTest = "org.apache.camel" % "camel-test-blueprint" % "2.15.0"
   var arquillianContainer = "org.jboss.arquillian.container" % "arquillian-container-karaf-managed" % "2.1.0.CR15"
   var arquillianTest = "org.jboss.arquillian.junit" % "arquillian-junit-container" % "1.1.4.Final"
 

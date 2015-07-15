@@ -35,6 +35,24 @@ object OsgiDemosBuild extends Build {
     paxAether, mvnUrl, guava, examNative, felix))
     .dependsOn(simpleService)
 
+  lazy val simpleServiceConsumer = Project(id = "simple-service-consumer", base = file("simple-service-consumer"))
+    .settings(basicSettings: _*)
+    .settings(
+      libraryDependencies ++= compile(osgi, slf4j)
+        ++ compile(camelSeq : _*)
+        ++ test (camelTest, slf4jLog4j)
+    )
+
+    .settings(osgiSettings: _*)
+    .settings(
+      OsgiKeys.privatePackage := Seq("org.demo.osgi.consumer.service"),
+      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","*")
+    )
+    .dependsOn(simpleService)
+
+    
+
+
   lazy val simpleService = Project(id = "simple-service", base = file("simple-service"))
     .settings(basicSettings: _*)
     .settings(osgiSettings: _*)

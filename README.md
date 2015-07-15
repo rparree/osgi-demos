@@ -1,5 +1,7 @@
 Organising, grouping together and providing a consistent structure of the OSGI/Fuse/Karaf demos i have used of the past years (still work in progress)
 
+These demos require JBoss Fuse 6.2
+
 # The Demos
 
 Please consult the setup below
@@ -10,6 +12,7 @@ JBossFuse:karaf@root> install mvn:com.edc4it/scala-test/0.1.0-SNAPSHOT
 ```
 - **mvn-bnd** a simple maven project to explore the Maven BND plugin
 - **simple-service** a simple blueprint configured OSGI Service
+- **simple-service-consumer** camel route using the simple-service
 - **simple-service-test** uses [PAX Exam](https://ops4j1.jira.com/wiki/display/PAXEXAM3/Documentation) to test the `SampleService`
 - **scala-test-feature** a maven project using the [features-maven-plugin](http://karaf.apache.org/manual/latest-2.3.x/developers-guide/features-maven-plugin-generate.html) to generate a `feature.xml` file
 you can create the `feature.xml` by running
