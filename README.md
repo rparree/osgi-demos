@@ -2,6 +2,33 @@ Organising, grouping together and providing a consistent structure of the OSGI/F
 
 These demos require JBoss Fuse 6.2
 
+# Setup
+
+### nexus
+
+The demos publish to a nexus repository:
+
+```
+docker run -d -p 8081:8081 --name nexus --volumes-from nexus-data sonatype/nexus
+```
+
+With one time:
+
+```
+docker run -d --name nexus-data sonatype/nexus echo "data-only container for Nexus"
+docker stop nexus-data
+```
+
+### Fuse
+
+See the docker image here https://github.com/rparree/jboss-fuse-docker
+
+```
+docker run -Pd -p 8101:8101 -p 61616:61616 \
+  --name fuse --link nexus \
+    rparree/jboss-fuse-full-admin
+```
+
 # The Demos
 
 Please consult the setup below
