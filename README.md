@@ -67,7 +67,7 @@ To consume the inlined service once deployed to fuse use the following curl comm
 curl -H "Content-Type: text/plain" --data "johnny"  http://localhost:9090/service
 ```
 
-- **fabric-demo** A camel fabric demo illustrating location transparency and load balancing. This demo has its own  ([readme](fabric-demo/README.md))
+- **fabric-demo** has been moved to the [camel-demos](https://github.com/rparree/camel-demos/) project ([fabric-demo](https://github.com/rparree/camel-demos/tree/master/fabric-demo))
 
 # Setup
 

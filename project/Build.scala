@@ -108,34 +108,20 @@ object OsgiDemosBuild extends Build {
     .dependsOn(simpleService)
 
 
-  lazy val fabricJetty = Project(id = "fabric-jetty", base = file("fabric-demo/fabric-jetty"))
-    .settings(basicSettings: _*)
-    .settings(
-      libraryDependencies ++= compile(osgi, slf4j)
-        ++ compile(camelSeq : _*)
-        ++ test (camelTest, slf4jLog4j)
-    )
 
+
+  lazy val declarativeServices = Project(id = "declarative-services", base = file("declarative-services"))
+    .settings(basicSettings: _*)
     .settings(osgiSettings: _*)
     .settings(
-      OsgiKeys.privatePackage := Nil,
-      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","io.fabric8.camel")
+      OsgiKeys.privatePackage := Seq("org.demo.ds.*"),
+      OsgiKeys.additionalHeaders := Map(
+        "Service-Component" -> "*",
+      "_dsannotations" -> "*" // todo complete ds
+      )
+    
     )
-
-  lazy val fabricDemoClientClient = Project(id = "fabric-demo-client", base = file("fabric-demo/fabric-demo-client"))
-    .settings(basicSettings: _*)
-    .settings(
-      
-      libraryDependencies ++= compile(osgi, slf4j)
-        ++ compile(camelSeq : _*)
-        ++ test (camelTest, slf4jLog4j)
-    )
-
-    .settings(osgiSettings: _*)
-    .settings(
-      OsgiKeys.privatePackage := Nil,
-      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","io.fabric8.camel")
-    )
+    .settings(libraryDependencies ++= compile(osgi, scrAnnotations))
 
 
 

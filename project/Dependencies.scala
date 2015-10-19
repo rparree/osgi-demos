@@ -18,6 +18,8 @@ object Dependencies {
   def container(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "container")
 
   val osgi = "org.osgi" % "org.osgi.core" % "4.3.0"
+  val osgiCompendium = "org.osgi" % "org.osgi.compendium" % "4.3.0"
+  val scrAnnotations = "org.apache.felix" % "org.apache.felix.scr.annotations" % "1.9.12" 
   var slf4j = "org.slf4j" % "slf4j-api" % "1.6.1"
 
   var paxExam = "org.ops4j.pax.exam" % "pax-exam-junit4" % "3.4.0" exclude("com.google.guava", "guava")
