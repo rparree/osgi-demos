@@ -1,5 +1,6 @@
-import com.typesafe.sbt.osgi.OsgiKeys
-import com.typesafe.sbt.osgi.SbtOsgi._
+
+import com.typesafe.sbt.osgi.SbtOsgi
+import com.typesafe.sbt.osgi.SbtOsgi.autoImport._
 import sbt.Keys._
 import sbt._
 
@@ -15,10 +16,12 @@ object OsgiDemosBuild extends Build {
 
   lazy val parent = Project(id = "osgi-demos",
     base = file("."))
+    .enablePlugins(SbtOsgi)
     .aggregate(scalaTest, simpleService, simpleServiceTest, common, bundleA, bundleB)
     .settings(basicSettings: _*)
 
   lazy val scalaTest = Project(id = "scala-test", base = file("scala-test"))
+    .enablePlugins(SbtOsgi)
     .settings(scalaTestSettings: _*)
     .settings(osgiSettings: _*)
     .settings(
@@ -36,6 +39,8 @@ object OsgiDemosBuild extends Build {
     .dependsOn(simpleService)
 
   lazy val simpleServiceConsumer = Project(id = "simple-service-consumer", base = file("simple-service-consumer"))
+    .enablePlugins(SbtOsgi)
+    .settings(osgiSettings: _*)
     .settings(basicSettings: _*)
     .settings(
       libraryDependencies ++= compile(osgi, slf4j)
@@ -43,7 +48,7 @@ object OsgiDemosBuild extends Build {
         ++ test (camelTest, slf4jLog4j)
     )
 
-    .settings(osgiSettings: _*)
+
     .settings(
       OsgiKeys.privatePackage := Seq("org.demo.osgi.consumer.service"),
       OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","*")
@@ -54,8 +59,9 @@ object OsgiDemosBuild extends Build {
 
 
   lazy val simpleService = Project(id = "simple-service", base = file("simple-service"))
-    .settings(basicSettings: _*)
+    .enablePlugins(SbtOsgi)
     .settings(osgiSettings: _*)
+    .settings(basicSettings: _*)
     .settings(
       OsgiKeys.privatePackage := Seq("org.demo.osgi.service.impl.*"),
       OsgiKeys.exportPackage := Seq("org.demo.osgi.service")
@@ -63,17 +69,19 @@ object OsgiDemosBuild extends Build {
     .settings(libraryDependencies ++= compile(osgi, slf4j) )
 
   lazy val common = Project(id = "common", base = file("classloading-sample/common"))
+    .enablePlugins(SbtOsgi)
+    .settings(osgiSettings: _*)
     .settings(basicSettings: _*)
     .settings(libraryDependencies ++= compile(osgi, slf4j))
-    .settings(osgiSettings: _*)
     .settings(
       OsgiKeys.exportPackage := Seq("!*blah","org.demo.osgi.classloading.common.*")
     )
 
   lazy val bundleA = Project(id = "bundleA", base = file("classloading-sample/bundleA"))
+    .enablePlugins(SbtOsgi)
+    .settings(osgiSettings: _*)
     .settings(basicSettings: _*)
     .settings(libraryDependencies ++= compile(osgi, slf4j))
-    .settings(osgiSettings: _*)
     .settings(
       OsgiKeys.exportPackage := Seq("org.demo.osgi.classloading.a"),
       OsgiKeys.bundleActivator := Option("org.demo.osgi.classloading.a.ActivatorA")
@@ -82,9 +90,10 @@ object OsgiDemosBuild extends Build {
 
 
   lazy val bundleB = Project(id = "bundleB", base = file("classloading-sample/bundleB"))
+    .enablePlugins(SbtOsgi)
+    .settings(osgiSettings: _*)
     .settings(basicSettings: _*)
     .settings(libraryDependencies ++= compile(osgi, slf4j))
-    .settings(osgiSettings: _*)
     .settings(
       OsgiKeys.exportPackage := Seq("org.demo.osgi.classloading.b"),
       OsgiKeys.bundleActivator := Option("org.demo.osgi.classloading.b.ActivatorB")
@@ -93,6 +102,8 @@ object OsgiDemosBuild extends Build {
 
 
   lazy val blueprintCamelDemo = Project(id = "camel-blueprint", base = file("camel-blueprint"))
+    .enablePlugins(SbtOsgi)
+    .settings(osgiSettings: _*)
     .settings(basicSettings: _*)
     .settings(
       libraryDependencies ++= compile(osgi, slf4j)
@@ -100,7 +111,6 @@ object OsgiDemosBuild extends Build {
         ++ test (camelTest, slf4jLog4j)
     )
 
-    .settings(osgiSettings: _*)
     .settings(
       OsgiKeys.privatePackage := Seq("demo.blueprint.routes"),
       OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","*")
@@ -111,17 +121,19 @@ object OsgiDemosBuild extends Build {
 
 
   lazy val declarativeServices = Project(id = "declarative-services", base = file("declarative-services"))
-    .settings(basicSettings: _*)
+    .enablePlugins(SbtOsgi)
     .settings(osgiSettings: _*)
+    .settings(basicSettings: _*)
     .settings(
       OsgiKeys.privatePackage := Seq("org.demo.ds.*"),
       OsgiKeys.additionalHeaders := Map(
-        "Service-Component" -> "*",
-      "_dsannotations" -> "*" // todo complete ds
+        "Service-Component" -> "*", // bnd annotations
+      "_dsannotations" -> "*" // OSGi standard annotations
+
       )
     
     )
-    .settings(libraryDependencies ++= compile(osgi, scrAnnotations))
+    .settings(libraryDependencies ++= compile(osgi, bndlib))
 
 
 

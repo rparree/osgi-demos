@@ -38,7 +38,8 @@ Please consult the setup below
 JBossFuse:karaf@root> install mvn:com.edc4it/scala-test/0.1.0-SNAPSHOT
 ```
 - **mvn-bnd** a simple maven project to explore the Maven BND plugin
-- **simple-service** a simple blueprint configured OSGI Service
+- **simple-service** a simple blueprint service
+- **declarative-services** a simple OSGI declarative service (using bnd annotations)
 - **simple-service-consumer** camel route using the simple-service
 - **simple-service-test** uses [PAX Exam](https://ops4j1.jira.com/wiki/display/PAXEXAM3/Documentation) to test the `SampleService`
 - **scala-test-feature** a maven project using the [features-maven-plugin](http://karaf.apache.org/manual/latest-2.3.x/developers-guide/features-maven-plugin-generate.html) to generate a `feature.xml` file
@@ -71,8 +72,6 @@ curl -H "Content-Type: text/plain" --data "johnny"  http://localhost:9090/servic
 
 # Setup
 
-**Java version**: Make sure you run with Java SE 7 and not Java SE 8
-
 You will need to install  [SBT 0.13](http://www.scala-sbt.org/download.html)
 
 ```bash
@@ -88,22 +87,7 @@ Loading ...
 [success] Total time: 5 s, completed
 ```
 
-You can now either deploy the bundle using a file URL, or you could issue the `publish` command in sbt (this will
-publish to your local repository)
+You can now either deploy the bundle using a file URL, or you could issue the `publishM2` command in sbt (this will
+publish to your local repository). To publish to a local nexus server use `publish`
 
 
-## Configure Karaf
-
-TThe http://scala-tools.org/ repository is no longer in use (which is listed in some older fuse installations). Replace the repository in `$KARAF_HOME/etc/org.ops4j.pax.url.mvn.cfg`
-
-```ini
-org.ops4j.pax.url.mvn.repositories= \
-    ...
-    https://oss.sonatype.org/content/groups/scala-tools@id=sonatype.repo
-```
-
-install Scala 2.11
-
-```bash
-JBossFuse:karaf@root> osgi:install mvn:org.scala-lang/scala-library/2.11.5
-```

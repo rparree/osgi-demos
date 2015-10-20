@@ -19,7 +19,8 @@ object Dependencies {
 
   val osgi = "org.osgi" % "org.osgi.core" % "4.3.0"
   val osgiCompendium = "org.osgi" % "org.osgi.compendium" % "4.3.0"
-  val scrAnnotations = "org.apache.felix" % "org.apache.felix.scr.annotations" % "1.9.12" 
+  val scrAnnotations = "org.apache.felix" % "org.apache.felix.scr.annotations" % "1.9.12"
+  val bndlib = "biz.aQute.bnd" % "bndlib" % "2.4.0"
   var slf4j = "org.slf4j" % "slf4j-api" % "1.6.1"
 
   var paxExam = "org.ops4j.pax.exam" % "pax-exam-junit4" % "3.4.0" exclude("com.google.guava", "guava")
