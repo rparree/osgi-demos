@@ -48,7 +48,7 @@ class ServiceTest {
 
     options(
       repository("http://localhost:8081/content/groups/public/").allowSnapshots(),
-
+      editConfigurationFileExtend("etc/org.ops4j.pax.url.mvn.cfg","org.ops4j.pax.url.mvn.repositories","http://localhost:8081/content/groups/public/@snapshots@id=local"),
       karafDistributionConfiguration
         .frameworkUrl(karafUrl)
         .karafVersion("2.4.0")
@@ -59,7 +59,7 @@ class ServiceTest {
       configureConsole.ignoreLocalConsole,
       features(karafStandardRepo, "scr"),
       features(karafCamelRepo, "camel-scala"),
-      mavenBundle() // make sure to publish locally in ~/.m2
+      mavenBundle() 
         .groupId("com.edc4it")
         .artifactId("blueprint-service")
         .version("0.1.0-SNAPSHOT")
