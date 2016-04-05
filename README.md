@@ -72,6 +72,11 @@ curl -H "Content-Type: text/plain" --data "johnny"  http://localhost:9090/servic
 
 # Setup
 
+### karaf features
+
+Make sure to install the `camel-scala` feature. 
+
+### SBT 
 You will need to install  [SBT 0.13](http://www.scala-sbt.org/download.html)
 
 ```bash

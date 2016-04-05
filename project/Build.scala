@@ -17,7 +17,7 @@ object OsgiDemosBuild extends Build {
   lazy val parent = Project(id = "osgi-demos",
     base = file("."))
     .enablePlugins(SbtOsgi)
-    .aggregate(scalaTest, simpleService, simpleServiceTest, common, bundleA, bundleB)
+    .aggregate(scalaTest, blueprintService, simpleServiceTest, common, bundleA, bundleB)
     .settings(basicSettings: _*)
 
   lazy val scalaTest = Project(id = "scala-test", base = file("scala-test"))
@@ -31,14 +31,13 @@ object OsgiDemosBuild extends Build {
 
     .settings(libraryDependencies ++= compile(osgi))
 
-  lazy val simpleServiceTest = Project(id = "simple-service-test", base = file("simple-service-test"))
+  lazy val simpleServiceTest = Project(id = "blueprint-service-test", base = file("blueprint-service-test"))
     .settings(simpleServiceTestSettings: _*)
     .settings(libraryDependencies ++= compile(osgi, slf4j)
-    ++ test(slf4jLog4j, paxExam, inject, paxExamCDI,
-    paxAether, mvnUrl, guava, examNative, felix))
-    .dependsOn(simpleService)
+    ++ test(karafFeatures,slf4jLog4j,paxExamContainerKaraf,paxExamJunit,paxExam,paxUrlAether, inject,junitInterface))
+    .dependsOn(blueprintService)
 
-  lazy val simpleServiceConsumer = Project(id = "simple-service-consumer", base = file("simple-service-consumer"))
+  lazy val blueprintConsumer = Project(id = "blueprint-service-consumer", base = file("blueprint-service-consumer"))
     .enablePlugins(SbtOsgi)
     .settings(osgiSettings: _*)
     .settings(basicSettings: _*)
@@ -53,12 +52,12 @@ object OsgiDemosBuild extends Build {
       OsgiKeys.privatePackage := Seq("org.demo.osgi.consumer.service"),
       OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","*")
     )
-    .dependsOn(simpleService)
-
-    
+    .dependsOn(blueprintService)
 
 
-  lazy val simpleService = Project(id = "simple-service", base = file("simple-service"))
+
+
+  lazy val blueprintService = Project(id = "blueprint-service", base = file("blueprint-service"))
     .enablePlugins(SbtOsgi)
     .settings(osgiSettings: _*)
     .settings(basicSettings: _*)
@@ -86,7 +85,7 @@ object OsgiDemosBuild extends Build {
       OsgiKeys.exportPackage := Seq("org.demo.osgi.classloading.a"),
       OsgiKeys.bundleActivator := Option("org.demo.osgi.classloading.a.ActivatorA")
     )
-    .dependsOn(common, simpleService)
+    .dependsOn(common, blueprintService)
 
 
   lazy val bundleB = Project(id = "bundleB", base = file("classloading-sample/bundleB"))
@@ -98,7 +97,7 @@ object OsgiDemosBuild extends Build {
       OsgiKeys.exportPackage := Seq("org.demo.osgi.classloading.b"),
       OsgiKeys.bundleActivator := Option("org.demo.osgi.classloading.b.ActivatorB")
     )
-    .dependsOn(common, simpleService)
+    .dependsOn(common, blueprintService)
 
 
   lazy val blueprintCamelDemo = Project(id = "camel-blueprint", base = file("camel-blueprint"))
@@ -115,7 +114,7 @@ object OsgiDemosBuild extends Build {
       OsgiKeys.privatePackage := Seq("demo.blueprint.routes"),
       OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","*")
     )
-    .dependsOn(simpleService)
+    .dependsOn(blueprintService)
 
 
 
