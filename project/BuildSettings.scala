@@ -16,7 +16,8 @@ object BuildSettings {
     javacOptions in doc     ++= Seq("-source", "1.7"),
     publishMavenStyle       := true,
     publishTo               := Some("Sonatype Snapshots Nexus" at "http://localhost:8081/content/repositories/snapshots/"),
-    credentials             += Credentials("Sonatype Nexus Repository Manager", "localhost", "admin", "admin123")
+    credentials             += Credentials("Sonatype Nexus Repository Manager", "localhost", "admin", "admin123"),
+    shellPrompt in ThisBuild:= { state => Project.extract(state).currentRef.project + "> " }
   )
 
   lazy val scalaTestSettings = basicSettings

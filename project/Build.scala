@@ -34,7 +34,7 @@ object OsgiDemosBuild extends Build {
   lazy val simpleServiceTest = Project(id = "blueprint-service-test", base = file("blueprint-service-test"))
     .settings(simpleServiceTestSettings: _*)
     .settings(libraryDependencies ++= compile(osgi, slf4j)
-    ++ test(karafFeatures,slf4jLog4j,paxExamContainerKaraf,paxExamJunit,paxExam,paxUrlAether, inject,junitInterface))
+      ++ test(karafFeatures, slf4jLog4j, paxExamContainerKaraf, paxExamJunit, paxExam, paxUrlAether, inject, junitInterface))
     .dependsOn(blueprintService)
 
   lazy val blueprintConsumer = Project(id = "blueprint-service-consumer", base = file("blueprint-service-consumer"))
@@ -43,18 +43,16 @@ object OsgiDemosBuild extends Build {
     .settings(basicSettings: _*)
     .settings(
       libraryDependencies ++= compile(osgi, slf4j)
-        ++ compile(camelSeq : _*)
-        ++ test (camelTest, slf4jLog4j)
+        ++ compile(camelSeq: _*)
+        ++ test(camelTest, slf4jLog4j)
     )
 
 
     .settings(
       OsgiKeys.privatePackage := Seq("org.demo.osgi.consumer.service"),
-      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","*")
+      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"", "*")
     )
     .dependsOn(blueprintService)
-
-
 
 
   lazy val blueprintService = Project(id = "blueprint-service", base = file("blueprint-service"))
@@ -65,7 +63,7 @@ object OsgiDemosBuild extends Build {
       OsgiKeys.privatePackage := Seq("org.demo.osgi.service.impl.*"),
       OsgiKeys.exportPackage := Seq("org.demo.osgi.service")
     )
-    .settings(libraryDependencies ++= compile(osgi, slf4j) )
+    .settings(libraryDependencies ++= compile(osgi, slf4j))
 
   lazy val common = Project(id = "common", base = file("classloading-sample/common"))
     .enablePlugins(SbtOsgi)
@@ -73,7 +71,7 @@ object OsgiDemosBuild extends Build {
     .settings(basicSettings: _*)
     .settings(libraryDependencies ++= compile(osgi, slf4j))
     .settings(
-      OsgiKeys.exportPackage := Seq("!*blah","org.demo.osgi.classloading.common.*")
+      OsgiKeys.exportPackage := Seq("!*blah", "org.demo.osgi.classloading.common.*")
     )
 
   lazy val bundleA = Project(id = "bundleA", base = file("classloading-sample/bundleA"))
@@ -106,17 +104,15 @@ object OsgiDemosBuild extends Build {
     .settings(basicSettings: _*)
     .settings(
       libraryDependencies ++= compile(osgi, slf4j)
-        ++ compile(camelSeq : _*)
-        ++ test (camelTest, slf4jLog4j)
+        ++ compile(camelSeq: _*)
+        ++ test(camelTest, slf4jLog4j)
     )
 
     .settings(
       OsgiKeys.privatePackage := Seq("demo.blueprint.routes"),
-      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"","*")
+      OsgiKeys.importPackage := Seq("org.apache.camel.component.jetty;version=\"[2,3)\"", "*")
     )
     .dependsOn(blueprintService)
-
-
 
 
   lazy val declarativeServices = Project(id = "declarative-services", base = file("declarative-services"))
@@ -127,13 +123,27 @@ object OsgiDemosBuild extends Build {
       OsgiKeys.privatePackage := Seq("org.demo.ds.*"),
       OsgiKeys.additionalHeaders := Map(
         "Service-Component" -> "*", // bnd annotations
-      "_dsannotations" -> "*" // OSGi standard annotations
+        "_dsannotations" -> "*" // OSGi standard annotations
 
       )
-    
+
     )
     .settings(libraryDependencies ++= compile(osgi, bndlib))
 
+  lazy val datasource = Project(id = "datasource", base = file("datasource"))
+    .enablePlugins(SbtOsgi)
+    .settings(osgiSettings: _*)
+    .settings(basicSettings: _*)
+    .settings(libraryDependencies ++= compile(osgi, slf4j, bndlib, hibernate))
+    .settings(
+      OsgiKeys.privatePackage := Seq("org.demo.osgi.datasource.**"),
+      OsgiKeys.importPackage := Seq("org.hibernate.proxy","javassist.util.proxy","*"),
+      OsgiKeys.additionalHeaders := Map(
+        "Service-Component" -> "*", // bnd annotations
+        "Meta-Persistence" -> "META-INF/persistence.xml"
+      )
+    )
+    .dependsOn(common)
 
 
 }

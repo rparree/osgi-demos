@@ -34,12 +34,6 @@ object Dependencies {
   var inject = "javax.inject" % "javax.inject" % "1"
   // ---
 
-
-
-
-
-
-
   var camelSeq = Seq("camel-core", "camel-jetty","camel-scala") map ("org.apache.camel" % _ % "2.15.0")
   var junitInterface = "com.novocode" % "junit-interface" % "0.11"
 
@@ -47,5 +41,6 @@ object Dependencies {
   var arquillianContainer = "org.jboss.arquillian.container" % "arquillian-container-karaf-managed" % "2.1.0.CR15"
   var arquillianTest = "org.jboss.arquillian.junit" % "arquillian-junit-container" % "1.1.4.Final"
 
+  var hibernate = "org.hibernate" % "hibernate-entitymanager" % "4.2.21.Final"
 
 }

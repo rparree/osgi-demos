@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features>
+    <feature name="datasource-demo">
+
+
+
+        <feature>jpa</feature>
+        <feature>hibernate</feature>
+        <feature>jndi</feature>
+        <feature>transaction</feature>
+
+        <bundle start-level="30">mvn:org.apache.aries/org.apache.aries.util/1.0.1</bundle>
+
+
+        <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.api/1.0.1</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container/1.0.1</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container.context/1.0.1</bundle>
+        <bundle start-level="30">mvn:com.edc4it/datasource/0.1.0-SNAPSHOT</bundle>
+
+
+
+    </feature>
+</features>
