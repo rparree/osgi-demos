@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
-           xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0">
+    <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
+               xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0">
 
-    <bean id="jpaDemo" init-method="init" class="org.demo.osgi.datasource.jpa.JpaComponentImpl">
-        <jpa:context unitname="demo" property="entityManager"/>
-        <tx:transaction method="*" value="Required"/>
-    </bean>
+        <bean id="jpaDemo" init-method="init" class="org.demo.osgi.datasource.jpa.JpaComponentImpl">
+            <jpa:context unitname="demo" property="entityManager"/>
+            <tx:transaction method="*" value="Required"/>
+        </bean>
 
-    <service ref="jpaDemo" interface="org.demo.osgi.datasource.jpa.JpaComponent"/>
+        <service ref="jpaDemo" interface="org.demo.osgi.datasource.jpa.JpaComponent"/>
 
-</blueprint>
+    </blueprint>

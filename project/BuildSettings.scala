@@ -15,7 +15,7 @@ object BuildSettings {
     javacOptions in compile ++= Seq("-source", "1.7", "-target", "1.7"),
     javacOptions in doc     ++= Seq("-source", "1.7"),
     publishMavenStyle       := true,
-    publishTo               := Some("Sonatype Snapshots Nexus" at "http://localhost:8081/content/repositories/snapshots/"),
+    publishTo               := Some("Sonatype Snapshots Nexus" at "http://localhost:8081/repository/snapshots/"),
     credentials             += Credentials("Sonatype Nexus Repository Manager", "localhost", "admin", "admin123"),
     shellPrompt in ThisBuild:= { state => Project.extract(state).currentRef.project + "> " }
   )

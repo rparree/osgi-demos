@@ -35,7 +35,7 @@ Please consult the setup below
 
 - **scala-test** a simple scala bundle with an activator. Can be used to check if scala was configured correctly
 ```bash
-JBossFuse:karaf@root> install mvn:com.edc4it/scala-test/0.1.0-SNAPSHOT
+    JBossFuse:karaf@root> install mvn:com.edc4it/scala-test/0.1.0-SNAPSHOT
 ```
 - **mvn-bnd** a simple maven project to explore the Maven BND plugin
 - **simple-service** a simple blueprint service

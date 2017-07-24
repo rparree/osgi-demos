@@ -23,6 +23,7 @@ object OsgiDemosBuild extends Build {
   lazy val scalaTest = Project(id = "scala-test", base = file("scala-test"))
     .enablePlugins(SbtOsgi)
     .settings(scalaTestSettings: _*)
+    .settings(libraryDependencies ++= compile(slf4j, osgi))
     .settings(osgiSettings: _*)
     .settings(
       OsgiKeys.privatePackage := Seq("demo.osgi.scala.*"),
